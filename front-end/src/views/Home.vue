@@ -18,7 +18,7 @@
   <footer>
     <div class="part-one">
         <ul id="menu">
-          <li><a href="https://github.com/CaymanWilliams/CreativeProject2">GitHub Repository (URL: https://github.com/CaymanWilliams/CreativeProject2 </a></li>
+          <li><a href="https://github.com/CaymanWilliams/CreativeProject4">GitHub Repository (URL: https://github.com/CaymanWilliams/CreativeProject4) </a></li>
         </ul>
     </div>
     <div class="part-two">
