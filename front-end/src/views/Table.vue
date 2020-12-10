@@ -528,7 +528,7 @@ body {
 
 .dealerbox >>> .result {
     position: absolute;
-    font-size: 3.5em;
+    font-size: 7.8em;
     color: black;
     background-color: rgba(197, 197, 197, 0.575);
     z-index:3;
@@ -536,7 +536,7 @@ body {
 
 .playerbox >>> .result {
     position: absolute;
-    font-size: 3.5em;
+    font-size: 7.8em;
     color: black;
     background-color: rgba(197, 197, 197, 0.575);
     z-index:3;

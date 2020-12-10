@@ -1,9 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
+      <a style="color:black;"> Login </a>
       <router-link to="/">Home</router-link> |
       <router-link to="/Table">Table</router-link> |
-      <router-link to="/Leaderboard">Leaderboard</router-link>
+      <router-link to="/Leaderboard">Leaderboard</router-link> |
+      <router-link to="/UserDetails">User Details</router-link>
+      <router-link to="/Login" style="float:right;">Login</router-link>
     </div>
     <router-view/>
   </div>
@@ -21,7 +24,7 @@
   color: #2c3e50;
 }
 
-#nav {
+#nav{
   padding: 30px;
   background: black;
 }
@@ -29,9 +32,11 @@
 #nav a {
   font-weight: bold;
   color: white;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-#nav a.router-link-exact-active {
+#nav a.router-link-exact-active{
   color: #42b983;
 }
 </style>
