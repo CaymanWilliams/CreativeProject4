@@ -3,9 +3,11 @@
     <div class="box">
       <h1>Leaderboard</h1>
       <div class = "players">
-        <li v-for="leader in leaders" :key="leader.username">
-          Username: {{leader.username }} Wins: {{leader.wins}}
-        </li>
+        <ul>
+          <li v-for="leader in leaders" :key="leader.username">
+            Username: {{leader.username }} Wins: {{leader.wins}}
+          </li>
+        </ul>
         </div>
       <h2>These are the top Champion Casino BlackJack Players in the World</h2>
     </div>
@@ -57,6 +59,11 @@ export default {
 
 .players {
   color: white;
+}
+
+.players ul{
+  list-style-type: none;
+  padding-left: 0;
 }
 
 h1 {
