@@ -397,7 +397,7 @@ body {
 }
 
 .excludefooter {
-    min-height: calc(100vh - 193px);
+    min-height: calc(100vh - 402px);
 }
 
 .main {

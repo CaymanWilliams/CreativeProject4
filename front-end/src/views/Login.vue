@@ -80,15 +80,12 @@ export default {
         return;
       }
       try {
-        console.log(this.usernameLogin, this.passwordLogin)
         let response = await axios.post('/api/users/login', {
           username: this.usernameLogin,
           password: this.passwordLogin,
         });
         this.$root.$data.user = response.data.user;
-        console.log(response.data.user)
       } catch (error) {
-        console.log(error)
         this.error = error.response.data.message;
         this.$root.$data.user = null;
       }
