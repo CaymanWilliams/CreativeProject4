@@ -109,6 +109,7 @@ app.post('/api/users', async (req, res) => {
         username: req.body.username,
         balance: 0,
         wins: 0,
+        ties: 0,
         losses: 0,
         totalDeposited: 0
       });

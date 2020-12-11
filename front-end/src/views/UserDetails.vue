@@ -24,19 +24,17 @@
       <div v-if="edit">
 	<div>
         <h1>Enter the Information that you would like to change in the boxes below:</h1>
-         <input placeholder="First Name" class = "bigger" v-model="firstName">
-        <input placeholder="Last Name" class = "bigger" v-model="lastName">
       </div>
       <div>
         <input placeholder="username"  class = "bigger" v-model="username">
         <input type="password" placeholder="password" class = "bigger" v-model="password">
       </div>
       <div>
-        <button type="submit" class="pure-button" v-on:click="editAccount()">Change Username/Password</button>
+        <button type="submit" class="pure-button" v-on:click="editAccount()" style="margin-top: 10px;">Change Username/Password</button>
       </div>
       <div id = "done"></div>
-        <button class ="pure-button">Delete Account</button>
-        <button class ="pure-button">Reset Statistics</button>
+        <button class ="pure-button" v-on:click = "deleteAccount()"> Delete Account</button>
+        <button class ="pure-button">Reset Game Statistics</button>
         <button class ="pure-button">Withdraw All Money</button>
       </div>
       </div>
@@ -47,9 +45,6 @@
 <script>
 import axios from "axios";
 
-
-
-
 export default {
   name: 'UserDetails',
   data: function() {
@@ -59,8 +54,6 @@ export default {
       error: "",
       added: false,
       edit: false,
-      firstName: "",
-      lastName: "",
       username: "",
       password: "",
     }
@@ -90,8 +83,6 @@ export default {
     this.error = '';
     try {
 	let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
-		firstname: this.firstName,
-		lastname: this.lastName,
 		username: this.username,
 		password: this.password,
 	});
@@ -100,11 +91,23 @@ export default {
     } catch (error) {
 	this.error = error.response.data.message;
     }
-    this.firstName = ""
-    this.lastName = ""
     this.username = ""
     this.password = ""
     this.edit = false;
+  },
+  SignOut() {
+      console.log("sign out attempted")
+      this.$root.$data.user = null;
+  },
+  deleteAccount() {
+    try {
+      axios.delete('/api/users/' + this.$root.$data.user.username, {})
+      this.SignOut()
+      this.$router.push("/")
+    }
+    catch(error) {
+      console.log(error)
+    }
   }
 }
 }
@@ -148,7 +151,7 @@ li {
   margin-bottom: 20px;
 }
 
-.back {
+#back {
   min-height: 1100px;
   background-color: black;
   position: absolute;
@@ -191,6 +194,8 @@ li {
   color: #b08a4f;
   border-radius: 30px;
   margin-bottom: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
   font-size: 18px;
   padding: 15px;
   cursor: pointer;
@@ -206,6 +211,10 @@ h1 {
   margin-bottom: 20px;
   background-color: black;
   padding: 10px;
+}
+
+#done {
+  margin-top: 20px;
 }
 
 h2 {
