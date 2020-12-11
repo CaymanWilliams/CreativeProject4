@@ -204,13 +204,13 @@ app.put('/api/users/:username', async (req,res) => {
     if (req.body.password) {
         user.password = req.body.password
     }
-    if (req.body.wins == 0) {
+    if (req.body.wins == 0 || req.body.wins) {
         profile.wins = req.body.wins;
     }
-    if (req.body.losses == 0) {
+    if (req.body.losses == 0 || req.body.losses) {
         profile.losses = req.body.losses;
     }
-    if (req.body.ties == 0) {
+    if (req.body.ties == 0 || req.body.ties) {
         profile.ties = req.body.ties;
     }
     if (req.body.balance) {
