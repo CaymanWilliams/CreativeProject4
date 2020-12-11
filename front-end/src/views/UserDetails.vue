@@ -22,7 +22,6 @@
       <h2 class = "button" v-on:click="edit=true" >CLICK HERE to Edit your Account Information </h2>
       </div>
       <div v-if="edit">
-<<<<<<< HEAD
 	<div>
         <h1>Enter the Information that you would like to change in the boxes below:</h1>
          <input placeholder="First Name" class = "bigger" v-model="firstName">
@@ -36,12 +35,10 @@
         <button type="submit" class="pure-button" v-on:click="editAccount()">Edit Account</button>
       </div>
       <div id = "done"></div>
-=======
-        <button class ="editbutton">Change Username/Password</button>
-        <button class ="editbutton">Delete Account</button>
-        <button class ="editbutton">Reset Statistics</button>
-        <button class ="editbutton">Withdraw All Money</button>
->>>>>>> 42e501f4d7f3f29e0ab54b35ba958aede81f29bf
+        <button class ="pure-button">Change Username/Password</button>
+        <button class ="pure-button">Delete Account</button>
+        <button class ="pure-button">Reset Statistics</button>
+        <button class ="pure-button">Withdraw All Money</button>
       </div>
       </div>
       <div class="back"></div>
@@ -146,6 +143,10 @@ ul {
 
 li {
   margin-top: 5px;
+}
+
+.box {
+  margin-bottom: 20px;
 }
 
 .back {
