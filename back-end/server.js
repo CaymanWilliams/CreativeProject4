@@ -26,6 +26,8 @@ const profileSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
+    firstname: String,
+    lastname: String,
     username: String,
     password: String,
   });
@@ -95,6 +97,8 @@ app.post('/api/users', async (req, res) => {
   
       // create a new user and save it to the database
       const user = new User({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
         username: req.body.username,
         password: req.body.password
       });
