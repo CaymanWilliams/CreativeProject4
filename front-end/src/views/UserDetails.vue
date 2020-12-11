@@ -9,7 +9,7 @@
 	<li class = "money" > Current Balance: </li>
 	<li class = "money"> <strong>${{this.$root.$data.profile.balance}}</strong></li>
 	<br>
-	<li> {{this.$root.$data.profile.wins}} Wins {{this.$root.$data.profile.losses}} Losses </li>
+	<li> {{this.$root.$data.profile.wins}} Wins, {{this.$root.$data.profile.losses}} Losses </li>
 	<br>
 	<li>Total Deposited: {{this.$root.$data.profile.totalDeposited}}</li>
        </ul>
