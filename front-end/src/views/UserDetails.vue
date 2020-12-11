@@ -35,7 +35,7 @@
       <div id = "done"></div>
         <button class ="pure-button" v-on:click = "deleteAccount()"> Delete Account</button>
         <button class ="pure-button">Reset Game Statistics</button>
-        <button class ="pure-button">Withdraw All Money</button>
+        <button class ="pure-button" v-on:click = "withdraw()">Withdraw All Money</button>
       </div>
       </div>
       <div class="back"></div>
@@ -108,6 +108,22 @@ export default {
     catch(error) {
       console.log(error)
     }
+  },
+  async withdraw() {
+    try {
+      console.log('/api/users/' + this.$root.$data.user.username)
+      let response = await axios.put('/api/users/' + this.$root.$data.user.username, {
+        balance: 0,
+        totalDeposited: 0,
+      });
+      console.log(response)
+      this.$root.$data.user = response.data.user;
+      this.$root.$data.profile = response.data.profile;
+      this.$router.push("/")
+    }
+    catch(error) {
+      console.log(error)
+    }
   }
 }
 }
@@ -151,7 +167,7 @@ li {
   margin-bottom: 20px;
 }
 
-#back {
+.back {
   min-height: 1100px;
   background-color: black;
   position: absolute;
