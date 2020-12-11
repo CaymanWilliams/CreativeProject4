@@ -41,8 +41,7 @@ export default {
         var userranking = response.data
         userranking = userranking.sort(sortfunction)
         if (userranking.length > 5) {
-          console.log(userranking.slice(5))
-          return userranking.slice(5)
+          return userranking.slice(0,5)
         }
         else {
           console.log(userranking)

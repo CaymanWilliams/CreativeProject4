@@ -13,10 +13,12 @@
         <input type="password" placeholder="password" class = "bigger" v-model="password">
       </div>
       <div>
-        <button type="submit" class="pure-button" @click.prevent="register" v-on:click="register()">Register</button>
+        <button type="submit" class="pure-button" @click.prevent="register" @click="register()">Register</button>
       </div>
     </form>
-    <p v-if="error" class="error">{{error}}</p>
+    <div  v-if="error" class="error">
+      <p>{{error}}</p>
+    </div>
     <form class="pure-form">
     <div>
       <h2>Login</h2>
@@ -24,10 +26,12 @@
       <input type="password" placeholder="password" class = "bigger" v-model="passwordLogin">
     </div>
     <div>
-      <button type="submit" class="pure-button" @click.prevent = "login" v-on:click="login()">Login</button>
+      <button type="submit" class="pure-button" @click.prevent = "login" @click="login()">Login</button>
     </div>
   </form>
-  <p v-if="errorLogin" class="error">{{errorLogin}}</p>
+  <div v-if="errorLogin" class = "error">
+    <p >{{errorLogin}}</p>
+  </div>
 </div>
 <div class = "back"></div>
 </div>
@@ -47,16 +51,23 @@ export default {
       passwordLogin: "",
       error: "",
       errorLogin: "",
+      registerReady: true
     }
   },
   components: {
   },
   methods: {
     async register() {
+      if (!this.registerReady) {
+        return
+      }
+      this.registerReady = false;
       this.error = '';
       this.errorLogin = '';
-      if (!this.firstName || !this.lastName || !this.username || !this.password)
+      if (!this.firstName || !this.lastName || !this.username || !this.password) {
+        this.registerReady = true;
         return;
+      }
       try {
         let response = await axios.post('/api/users', {
           firstname: this.firstName,
@@ -66,6 +77,7 @@ export default {
         });
         this.$root.$data.user = response.data.user;
         this.$root.$data.profile = response.data.profile;
+        this.$router.push("/")
       } catch (error) {
         this.error = error.response.data.message;
         this.$root.$data.user = null;
@@ -75,7 +87,7 @@ export default {
       this.lastName = ""
       this.username = ""
       this.password = ""
-      this.$router.push("/")
+      this.registerReady = true
     },
     async login() {
       this.error = '';
@@ -90,14 +102,14 @@ export default {
         });
         this.$root.$data.user = response.data.user;
         this.$root.$data.profile = response.data.profile;
+        this.$router.push("/")
       } catch (error) {
-        this.error = error.response.data.message;
+        this.errorLogin = error.response.data.message;
         this.$root.$data.user = null;
         this.$root.$data.profile = null;
       }
       this.usernameLogin = ""
       this.passwordLogin = ""
-      this.$router.push("/")
     }
   }
 }
@@ -200,11 +212,10 @@ input {
 }
 
 .error {
-  margin-top: 20px;
-  display: inline;
   padding: 5px 20px;
+  margin-bottom:10px;
   border-radius: 30px;
-  font-size: 10px;
+  font-size: 20px;
   background-color: #d9534f;
   color: #fff;
 }
