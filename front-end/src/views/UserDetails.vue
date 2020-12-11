@@ -19,11 +19,12 @@
 	<p v-if="added"> Thank You for your deposit!</p>
 	<h2 class = "button" v-on:click="edit=true" >CLICK HERE to Edit your Account Information </h2>
       </div>
+      <div class="back"></div>
     </div>
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 export default {
   name: 'UserDetails',
   data: function() {
@@ -175,6 +176,17 @@ z-index: -1;
 min-height: calc(100vh - 402px);
 }
 
+.back {
+  min-height: calc(100vh - 555px);
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -2;
+}
+
 .box {
   background: black;
   opacity: 0.95;
@@ -192,6 +204,24 @@ min-height: calc(100vh - 402px);
 @media (max-width:960px) {
     h1 {
         font-size: 16pt;
+    }
+    li {
+	font-size: 12pt;
+    }
+    p {
+	font-size: 12 pt;
+    }
+    .button {
+	font-size: 12pt;
+    }
+    .money {
+	font-size: 12pt;
+    }
+    .bigger {
+	font-size: 12pt;
+    } 
+    .box {
+	width: 80%;
     }
 }
 </style>
