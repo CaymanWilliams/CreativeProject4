@@ -26,11 +26,10 @@
 
 <script>
 import axios from "axios";
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 0ee3e8c80a395f12c7c5f405cc4b08952134b159
+
+
 export default {
   name: 'UserDetails',
   data: function() {
