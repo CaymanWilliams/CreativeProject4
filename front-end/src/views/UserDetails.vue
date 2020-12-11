@@ -30,10 +30,10 @@
         <input type="password" placeholder="password" class = "bigger" v-model="password">
       </div>
       <div>
-        <button type="submit" class="pure-button" v-on:click="editAccount()">Edit Account</button>
+        <button type="submit" class="pure-button" v-on:click="editAccount()" style="margin-top: 10px;">Change Username/Password</button>
       </div>
       <div id = "done"></div>
-        <button class ="editbutton">Delete Account</button>
+        <button class ="pure-button" v-on:click = "deleteAccount()"> Delete Account</button>
         <button class ="editbutton" v-on:click="resetStats()">Reset Game Statistics</button>
         <button class ="editbutton">Withdraw All Money</button>
       </div>
@@ -44,9 +44,6 @@
 
 <script>
 import axios from "axios";
-
-
-
 
 export default {
   name: 'UserDetails',
@@ -111,6 +108,20 @@ export default {
 		this.error = error.response.data.message;
 	}
 },
+  SignOut() {
+      console.log("sign out attempted")
+      this.$root.$data.user = null;
+  },
+  deleteAccount() {
+    try {
+      axios.delete('/api/users/' + this.$root.$data.user.username, {})
+      this.SignOut()
+      this.$router.push("/")
+    }
+    catch(error) {
+      console.log(error)
+    }
+  }
 }
 }
 
@@ -149,7 +160,11 @@ li {
   margin-top: 5px;
 }
 
-.back {
+.box {
+  margin-bottom: 20px;
+}
+
+#back {
   min-height: 1100px;
   background-color: black;
   position: absolute;
@@ -192,6 +207,8 @@ li {
   color: #b08a4f;
   border-radius: 30px;
   margin-bottom: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
   font-size: 18px;
   padding: 15px;
   cursor: pointer;
@@ -207,6 +224,10 @@ h1 {
   margin-bottom: 20px;
   background-color: black;
   padding: 10px;
+}
+
+#done {
+  margin-top: 20px;
 }
 
 h2 {
