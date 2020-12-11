@@ -27,16 +27,18 @@
 #nav{
   padding: 30px;
   background: black;
+  font-size: 24pt;
+  font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
 }
 
 #nav a {
   font-weight: bold;
-  color: white;
+  color: #b08a4f;
   padding-left: 5px;
   padding-right: 5px;
 }
 
 #nav a.router-link-exact-active{
-  color: #42b983;
+  color: #497834;
 }
 </style>
