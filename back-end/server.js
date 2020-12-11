@@ -133,6 +133,9 @@ app.post('/api/users', async (req, res) => {
       const user = await User.findOne({
         username: req.body.username
       });
+      const profile = await Profile.findOne({
+        username: req.body.username
+      })
       // Return an error if user does not exist.
       if (!user)
         return res.status(403).send({
@@ -147,7 +150,8 @@ app.post('/api/users', async (req, res) => {
         });
   
       return res.send({
-        user: user
+        user: user,
+        profile: profile
       });
     } catch (error) {
       console.log(error);

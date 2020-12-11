@@ -13,6 +13,9 @@
 
 <body>
   <div class = "excludefooter">
+      <div class = "bet">
+        <h1> Current Balance: {{this.$root.$data.profile.balance}}  </h1>
+      </div>
     <div class = "main">
       <div class="gamebox" id="start" v-on:click="gameStart()">
         <h1>Start Game</h1>

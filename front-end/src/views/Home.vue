@@ -11,7 +11,7 @@
     Begin a game by clicking the button below:</p>
   </div>
 
-  <p class = "button"><router-link to="/Table"> Click to Enter the BlackJack Table </router-link></p>
+  <p class = "button"><router-link to="/Login"> Click to login and start playing! </router-link></p>
 
   <img class = "title2" src="/images/table.jpg">
 

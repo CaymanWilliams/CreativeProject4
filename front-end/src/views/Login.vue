@@ -64,14 +64,17 @@ export default {
           password: this.password,
         });
         this.$root.$data.user = response.data.user;
+        this.$root.$data.profile = response.data.profile;
       } catch (error) {
         this.error = error.response.data.message;
         this.$root.$data.user = null;
+        this.$root.$data.profile = null;
       }
       this.firstName = ""
       this.lastName = ""
       this.username = ""
       this.password = ""
+      this.$router.push("/")
     },
     async login() {
       this.error = '';
@@ -85,12 +88,15 @@ export default {
           password: this.passwordLogin,
         });
         this.$root.$data.user = response.data.user;
+        this.$root.$data.profile = response.data.profile;
       } catch (error) {
         this.error = error.response.data.message;
         this.$root.$data.user = null;
+        this.$root.$data.profile = null;
       }
       this.usernameLogin = ""
       this.passwordLogin = ""
+      this.$router.push("/")
     }
   }
 }

@@ -3,10 +3,10 @@
     <div id="nav">
       <a v-if="this.$root.login" style="color:black;"> Login </a>
       <a v-if="!this.$root.login" style="color:black;">Sign Out</a>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/Table">Table</router-link> |
-      <router-link to="/Leaderboard">Leaderboard</router-link> |
-      <router-link to="/UserDetails">User Details</router-link>
+      <router-link to="/" class="Home">Home</router-link><span v-if="!this.$root.login">|</span>
+      <router-link to="/Table" v-if="!this.$root.login">Table</router-link><span v-if="!this.$root.login">|</span>
+      <router-link to="/Leaderboard" v-if="!this.$root.login" >Leaderboard</router-link><span v-if="!this.$root.login">|</span>
+      <router-link to="/UserDetails" v-if="!this.$root.login" >User Details</router-link>
       <router-link to="/Login" v-if="this.$root.login" style="float:right;">Login</router-link>
       <a href="/" style="float:right;" v-if="!this.$root.login" v-on:click = "SignOut()"> Sign Out</a>
     </div>
