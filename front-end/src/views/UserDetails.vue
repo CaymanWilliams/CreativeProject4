@@ -8,11 +8,16 @@
 	<li class = "money" > Current Balance: </li>
 	<li class = "money"> <strong>${{this.$root.$data.profile.balance}}</strong></li>
 	<br>
-	<li> {{this.$root.$data.profile.wins}} Wins      {{this.$root.$data.profile.losses}} Losses </li>
+	<li> {{this.$root.$data.profile.wins}} Wins {{this.$root.$data.profile.losses}} Losses </li>
+	<br>
+	<li>Total Deposited: {{this.$root.$data.profile.totalDeposited}}</li>
        </ul>
 	<h2 class = "button" v-on:click="addMoney=true" >CLICK HERE to add Money to your Account </h2>
+	<p h2 v-if="addMoney"> Enter the amount of Money you wish to deposit below:</p>
 	<input v-if="addMoney" placeholder="Please Enter Amount to Add" class = "bigger" v-model="amountToAdd">
-	<button v-if="addMoney" type="submit" class="gameButton" v-on:click="addMoney()">Submit</button>
+	<button v-if="addMoney" type="submit" class="gameButton" v-on:click="addTheMoney()">Submit</button>
+	<p v-if="added"> Thank You for your deposit!</p>
+	<h2 class = "button" v-on:click="edit=true" >CLICK HERE to Edit your Account Information </h2>
       </div>
     </div>
   </div>
@@ -26,12 +31,33 @@ export default {
   data: function() {
     return {
       addMoney: false,
-      amountToAdd: 0
+      amountToAdd: 0,
+      error: "",
+      added: false,
+      edit: false
     }
   },
   components: {
   },
-  method: {
+  methods: {
+	async addTheMoney() {
+		this.error = '';
+		try {
+			let newbalance = this.$root.$data.profile.balance + this.amountToAdd;
+			let newDeposit = this.$root.$data.profile.totalDeposited + this.amountToAdd;	       
+	                let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
+                        	balance: newbalance,
+                        	totalDeposited: newDeposit
+                    })
+                this.added = true;
+		this.adMoney = false;
+                this.$root.$data.user = response.data.user;
+		this.$root.$data.profile = response.data.profile;
+		}
+		catch(error) {
+                    console.log(error)
+                }
+	}	
   }
 }
 
@@ -42,6 +68,11 @@ export default {
   font-size: 18px;
   margin-bottom: 10px;
 }
+
+p {
+  color: #b08a4f;
+}
+
 .gameButton {
     font-size: 12pt;
     border-radius: 8px;
@@ -79,7 +110,13 @@ li {
   font-size: 24pt;
   border: 5px solid #b08a4f;
   cursor: pointer;
+  padding: 5px;
 
+}
+
+.button:hover {
+  background-color: #b08a4f;
+  color: black;
 }
 
 .pure-button {
