@@ -231,8 +231,10 @@ export default {
             }
             try {
                     let newbalance = this.$root.$data.profile.balance - this.bet;
+                    let newloss = this.$root.$data.profile.losses + 1;
                     let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
-                        balance: newbalance
+                        balance: newbalance,
+                        losses: newloss
                     })
                     this.$root.$data.user = response.data.user;
                     this.$root.$data.profile = response.data.profile;
@@ -309,8 +311,10 @@ export default {
             if (Math.max.apply(Math, this.dealertotal) > Math.max.apply(Math, this.playertotal)) {
                 try {
                     let newbalance = this.$root.$data.profile.balance - this.bet;
+                    let newloss = this.$root.$data.profile.losses + 1;
                     let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
-                        balance: newbalance
+                        balance: newbalance,
+                        losses: newloss
                     })
                     this.$root.$data.user = response.data.user;
                     this.$root.$data.profile = response.data.profile;
@@ -325,8 +329,10 @@ export default {
             else if (Math.max.apply(Math, this.playertotal) > Math.max.apply(Math, this.dealertotal)) {
                 try {
                     let newbalance = this.bet + this.$root.$data.profile.balance;
+                    let newwins = this.$root.$data.profile.wins + 1;
                     let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
-                        balance: newbalance
+                        balance: newbalance,
+                        wins: newwins
                     })
                     this.$root.$data.user = response.data.user;
                     this.$root.$data.profile = response.data.profile;
@@ -339,6 +345,17 @@ export default {
                 document.getElementById("playerCards").innerHTML+= "<div class=\"result\"><h2>  WIN  <h2></div>"
             }
             else {
+                try {
+                    let newties = this.$root.$data.profile.ties + 1;
+                    let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
+                        ties: newties
+                    })
+                    this.$root.$data.user = response.data.user;
+                    this.$root.$data.profile = response.data.profile;
+                }
+                catch(error) {
+                    console.log(error)
+                }
                 document.getElementById("dealerCards").classList.add("dealerboxdisplay")
                 document.getElementById("dealerCards").innerHTML+= "<div class=\"result\"><h2>  TIE  </h2></div>"
                 document.getElementById("playerCards").innerHTML+= "<div class=\"result\"><h2>  TIE  <h2></div>"
@@ -347,8 +364,10 @@ export default {
         if (this.dealerbust) {
             try {
                     let newbalance = this.bet + this.$root.$data.profile.balance;
+                    let newwins = this.$root.$data.profile.wins + 1;
                     let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
-                        balance: newbalance
+                        balance: newbalance,
+                        wins: newwins
                     })
                     this.$root.$data.user = response.data.user;
                     this.$root.$data.profile = response.data.profile;
