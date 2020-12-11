@@ -1,24 +1,29 @@
 <template>
 <div class="users">
   <div class="box">
-    <h1>User Information:</h1>
-      <ul class = "information">
-	<li> Name: {{this.$root.$data.user.firstname}} {{this.$root.$data.user.lastname}}</li>
-  <li>Username: {{this.$root.$data.user.username}} </li>
-	<br>
-	<li class = "money" > Current Balance: </li>
-	<li class = "money"> <strong>${{this.$root.$data.profile.balance}}</strong></li>
-	<br>
-	<li> {{this.$root.$data.profile.wins}} Wins, {{this.$root.$data.profile.losses}} Losses </li>
-	<br>
-	<li>Total Winnings: {{this.$root.$data.profile.balance - this.$root.$data.profile.totalDeposited}}</li>
-       </ul>
-	<h2 class = "button" v-on:click="addMoney=true" >CLICK HERE to add Money to your Account </h2>
-	<p h2 v-if="addMoney"> Enter the amount of Money you wish to deposit below:</p>
-	<input v-if="addMoney" placeholder="Please Enter Amount to Add" class = "bigger" v-model="amountToAdd">
-	<button v-if="addMoney" type="submit" class="gameButton" v-on:click="addTheMoney()">Submit</button>
-	<p v-if="added"> Thank You for your deposit!</p>
-	<h2 class = "button" v-on:click="edit=true" >CLICK HERE to Edit your Account Information </h2>
+    <div v-if="!edit">
+        <h1>User Information:</h1>
+          <ul class = "information">
+      <li> Name: {{this.$root.$data.user.firstname}} {{this.$root.$data.user.lastname}}</li>
+      <li>Username: {{this.$root.$data.user.username}} </li>
+      <br>
+      <li class = "money" > Current Balance: </li>
+      <li class = "money"> <strong>${{this.$root.$data.profile.balance}}</strong></li>
+      <br>
+      <li> {{this.$root.$data.profile.wins}} Wins, {{this.$root.$data.profile.losses}} Losses </li>
+      <br>
+      <li>Total Winnings: ${{this.$root.$data.profile.balance - this.$root.$data.profile.totalDeposited}}</li>
+          </ul>
+      <h2 class = "button" v-on:click="addMoney=true" >CLICK HERE to add Money to your Account </h2>
+      <p h2 v-if="addMoney"> Enter the amount of Money you wish to deposit below:</p>
+      <input v-if="addMoney" placeholder="Please Enter Amount to Add" class = "bigger" v-model="amountToAdd">
+      <button v-if="addMoney" type="submit" class="gameButton" v-on:click="addTheMoney()">Submit</button>
+      <p v-if="added"> Thank You for your deposit!</p>
+      <h2 class = "button" v-on:click="edit=true" >CLICK HERE to Edit your Account Information </h2>
+      </div>
+      <div v-if="edit">
+        
+      </div>
       </div>
       <div class="back"></div>
     </div>
@@ -95,7 +100,7 @@ li {
 }
 
 .back {
-  min-height: 1000px;
+  min-height: 1100px;
   background-color: black;
   position: absolute;
   top: 0;
@@ -186,17 +191,6 @@ right: 0;
 position: absolute;
 z-index: -1;
 min-height: calc(100vh - 402px);
-}
-
-.back {
-  min-height: calc(100vh - 555px);
-  background-color: black;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: -2;
 }
 
 .box {
