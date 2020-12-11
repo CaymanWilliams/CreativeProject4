@@ -3,12 +3,13 @@
   <div class="box">
     <h1>User Information:</h1>
       <ul class = "information">
-	<li> Name: {{this.$root.$data.user.firstname}} {{this.$root.$data.user.lastname}} Username: {{this.$root.$data.user.username}} </li>
+	<li> Name: {{this.$root.$data.user.firstname}} {{this.$root.$data.user.lastname}}</li>
+  <li>Username: {{this.$root.$data.user.username}} </li>
 	<br>
 	<li class = "money" > Current Balance: </li>
 	<li class = "money"> <strong>${{this.$root.$data.profile.balance}}</strong></li>
 	<br>
-	<li> {{this.$root.$data.profile.wins}} Wins {{this.$root.$data.profile.losses}} Losses </li>
+	<li> {{this.$root.$data.profile.wins}} Wins, {{this.$root.$data.profile.losses}} Losses </li>
 	<br>
 	<li>Total Deposited: {{this.$root.$data.profile.totalDeposited}}</li>
        </ul>
@@ -19,12 +20,21 @@
 	<p v-if="added"> Thank You for your deposit!</p>
 	<h2 class = "button" v-on:click="edit=true" >CLICK HERE to Edit your Account Information </h2>
       </div>
+<<<<<<< HEAD
       <div class="back"></div>
+=======
+    <div class="back">
+    </div>
+>>>>>>> 8e4d08d592dcde8fb6dda7e46f583e88647b7ac4
     </div>
 </template>
 
 <script>
 import axios from "axios";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8e4d08d592dcde8fb6dda7e46f583e88647b7ac4
 export default {
   name: 'UserDetails',
   data: function() {
@@ -39,24 +49,24 @@ export default {
   components: {
   },
   methods: {
-	async addTheMoney() {
-		this.error = '';
-		try {
-			let newbalance = this.$root.$data.profile.balance + this.amountToAdd;
-			let newDeposit = this.$root.$data.profile.totalDeposited + this.amountToAdd;	       
-	                let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
-                        	balance: newbalance,
-                        	totalDeposited: newDeposit
-                    })
-                this.added = true;
-		this.adMoney = false;
-                this.$root.$data.user = response.data.user;
-		this.$root.$data.profile = response.data.profile;
-		}
-		catch(error) {
-                    console.log(error)
-                }
-	}	
+    async addTheMoney() {
+      this.error = '';
+      try {
+        let newbalance = this.$root.$data.profile.balance + parseFloat(this.amountToAdd);
+        let newDeposit = this.$root.$data.profile.totalDeposited + parseFloat(this.amountToAdd);	       
+        let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
+                balance: newbalance,
+                totalDeposited: newDeposit
+          })
+      this.added = true;
+      this.addMoney = false;
+      this.$root.$data.user = response.data.user;
+      this.$root.$data.profile = response.data.profile;
+      }
+      catch(error) {
+        console.log(error)
+      }
+    }	
   }
 }
 
@@ -91,6 +101,17 @@ ul {
 
 li {
   margin-top: 5px;
+}
+
+.back {
+  min-height: 1000px;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -2;
 }
 
 .money {
@@ -154,10 +175,10 @@ h2 {
   height: 500px;
 }
 
-
 .users {
   min-height: calc(100vh - 402px);
   padding: 30px;
+  padding-bottom: 0px;
   display: flex;
   justify-content: center;
 }
