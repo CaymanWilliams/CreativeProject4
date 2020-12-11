@@ -31,6 +31,10 @@
 
 <script>
 import axios from "axios";
+
+
+
+
 export default {
   name: 'UserDetails',
   data: function() {
