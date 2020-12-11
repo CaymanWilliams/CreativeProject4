@@ -22,7 +22,10 @@
       <h2 class = "button" v-on:click="edit=true" >CLICK HERE to Edit your Account Information </h2>
       </div>
       <div v-if="edit">
-        
+        <button class ="editbutton">Change Username/Password</button>
+        <button class ="editbutton">Delete Account</button>
+        <button class ="editbutton">Reset Statistics</button>
+        <button class ="editbutton">Withdraw All Money</button>
       </div>
       </div>
       <div class="back"></div>
@@ -113,6 +116,8 @@ li {
   right: 0;
   z-index: -2;
 }
+
+.editbutton
 
 .money {
   font-size: 32pt;
