@@ -2,26 +2,95 @@
 <div class="users">
   <div class="box">
     <h1>User Information:</h1>
-    <div v-if="error" class = "error"> <h1> Please Login or Register to view user data </h1></div>
-    <div v-else>
-      <h2>(use the buttons to modify the information as necessary)</h2>
-      <div class = "information">{{information}}THERE WILL BE A LIST HERE</div>
+      <ul class = "information">
+	<li> Name: {{this.$root.$data.user.firstname}} {{this.$root.$data.user.lastname}} Username: {{this.$root.$data.user.username}} </li>
+	<br>
+	<li class = "money" > Current Balance: </li>
+	<li class = "money"> <strong>${{this.$root.$data.profile.balance}}</strong></li>
+	<br>
+	<li> {{this.$root.$data.profile.wins}} Wins      {{this.$root.$data.profile.losses}} Losses </li>
+       </ul>
+	<h2 class = "button" v-on:click="addMoney=true" >CLICK HERE to add Money to your Account </h2>
+	<input v-if="addMoney" placeholder="Please Enter Amount to Add" class = "bigger" v-model="amountToAdd">
+	<button v-if="addMoney" type="submit" class="gameButton" v-on:click="addMoney()">Submit</button>
+      </div>
     </div>
-
   </div>
 </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  name: 'Table',
+  name: 'UserDetails',
+  data: function() {
+    return {
+      addMoney: false,
+      amountToAdd: 0
+    }
+  },
   components: {
   },
+  method: {
+  }
 }
 
 </script>
 
 <style scoped>
+.bigger {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.gameButton {
+    font-size: 12pt;
+    border-radius: 8px;
+    background-color: white;
+    padding: 5px;
+    margin: 20px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+  font-size: 24pt;
+  color: #b08a4f;
+}
+
+li {
+  margin-top: 5px;
+}
+
+.money {
+  font-size: 32pt;
+}
+
+.button {
+  font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 70%;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  font-size: 24pt;
+  border: 5px solid #b08a4f;
+  cursor: pointer;
+
+}
+
+.pure-button {
+  background-color: black;
+  color: #b08a4f;
+  border-radius: 30px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  padding: 15px;
+}
+
 h1 {
   font-size: 48px;
   font-variant: capitalize;
@@ -43,8 +112,15 @@ h2 {
   color: #b08a4f;
 }
 
+.black {
+  background-color: black;
+  width: 100%;
+  height: 500px;
+}
+
 
 .users {
+  min-height: calc(100vh - 402px);
   padding: 30px;
   display: flex;
   justify-content: center;
@@ -61,6 +137,7 @@ bottom: 0;
 right: 0;
 position: absolute;
 z-index: -1;
+min-height: calc(100vh - 402px);
 }
 
 .box {
@@ -74,5 +151,12 @@ z-index: -1;
   justify-content: center;
   text-align: center;
   display: inline;
+  border: 5px solid #b08a4f;
+}
+
+@media (max-width:960px) {
+    h1 {
+        font-size: 16pt;
+    }
 }
 </style>
