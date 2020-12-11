@@ -83,7 +83,7 @@ export default {
   },
   computed: {
       validBet() {
-          if (this.bet < this.$root.$data.profile.balance) {
+          if (this.bet <= this.$root.$data.profile.balance) {
               return true;
           }
           else {

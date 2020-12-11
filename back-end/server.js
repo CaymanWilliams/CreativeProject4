@@ -213,10 +213,10 @@ app.put('/api/users/:username', async (req,res) => {
     if (req.body.ties == 0 || req.body.ties) {
         profile.ties = req.body.ties;
     }
-    if (req.body.balance) {
+    if (req.body.balance == 0 || req.body.balance) {
         profile.balance = req.body.balance
     }
-    if (req.body.totalDeposited) {
+    if (req.body.totalDeposited == 0 || req.body.totalDeposited) {
         profile.totalDeposited = req.body.totalDeposited
     }
     user.save()
