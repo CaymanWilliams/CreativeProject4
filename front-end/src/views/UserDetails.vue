@@ -100,7 +100,8 @@ export default {
 	this.error = '';
 	try {
 		let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
-			wins: 0,
+      wins: 0,
+      ties: 0,
 			losses: 0
     });
     console.log(response)
