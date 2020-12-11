@@ -22,6 +22,7 @@ const profileSchema = new mongoose.Schema({
   balance: Number,
   wins: Number,
   losses: Number,
+  ties: Number,
   totalDeposited: Number,
 });
 
@@ -202,16 +203,24 @@ app.put('/api/users/:username', async (req,res) => {
     if (req.body.password) {
         user.password = req.body.password
     }
-    if (req.body.reset) {
-        profile.wins = 0;
-        profile.losses = 0;
+    if (req.body.wins) {
+        profile.wins = req.body.wins;
     }
-    if (req.body.withdraw) {
-        profile.balance = 0;
+    if (req.body.losses) {
+        profile.losses = req.body.losses;
+    }
+    if (req.body.ties) {
+        profile.ties = req.body.ties;
+    }
+    if (req.body.balance) {
+        profile.balance = req.body.balance
     }
     user.save()
     profile.save()
-    res.sendStatus(200)
+    res.send({
+        user: user,
+        profile: profile
+      });
   } catch(error) {
     console.log(error);
     res.sendStatus(500)

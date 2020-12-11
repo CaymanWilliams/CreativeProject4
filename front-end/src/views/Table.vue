@@ -13,14 +13,24 @@
 
 <body>
   <div class = "excludefooter">
-      <div class = "bet">
-        <h1> Current Balance: {{this.$root.$data.profile.balance}}  </h1>
+      <div class = "bet" v-if ="!hasStarted">
+        <h1> Current Balance: ${{this.$root.$data.profile.balance}} </h1>
+        <h2> Place Bet: </h2>
+        <div class = "quickbet">
+            <button class = "gameButton" v-on:click="bet = 5" v-bind:class="{choose: bet == 5}"><h1>$5</h1></button>
+            <button class = "gameButton" v-on:click="bet = 10" v-bind:class="{choose: bet == 10}"><h1>$10</h1></button>
+            <button class = "gameButton" v-on:click="bet = 50" v-bind:class="{choose: bet == 50}"><h1>$50</h1></button>
+            <button class = "gameButton" v-on:click="bet = 100" v-bind:class="{choose: bet == 100}"><h1>$100</h1></button>
+            <button class = "gameButton" v-on:click="bet = 1000" v-bind:class="{choose: bet == 1000}"><h1>$1000</h1></button>
+        </div>
       </div>
     <div class = "main">
-      <div class="gamebox" id="start" v-on:click="gameStart()">
+      <div v-if= "bet!= -1 && validBet && !hasStarted" class="gamebox" id="start" v-on:click="gameStart()">
         <h1>Start Game</h1>
       </div>
 
+      <h1 v-if="!validBet && !hasStarted" class="text">You don't have enough money to make this bet...</h1>
+      <h1 v-if="!validBet && !hasStarted" class="text">(Go to User Details to add more money to your account!)</h1>
         <div id="dealerCards" class="dealerbox hidden">
         </div>
       <div class = "row">
@@ -63,6 +73,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Table',
   components: {
@@ -77,8 +89,27 @@ export default {
       started: false,
       bust: false,
       dealerbust: false,
-      finished: false
+      finished: false,
+      bet: -1
     }
+  },
+  computed: {
+      validBet() {
+          if (this.bet < this.$root.$data.profile.balance) {
+              return true;
+          }
+          else {
+              return false;
+          }
+      },
+      hasStarted() {
+          if (this.started) {
+              return true;
+          }
+          else {
+              return false;
+          }
+      }
   },
   methods: {
     gameStart() {
@@ -94,6 +125,7 @@ export default {
       var data = this;
 
       if (!this.started) {
+          this.started = true;
           var url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
           fetch(url)
           .then(function(response){
@@ -125,10 +157,8 @@ export default {
                   data.updatePlayer();
                   document.getElementById("stand").classList.replace("hidden", "show");
                   document.getElementById("hit").classList.replace("hidden", "show");
-                  document.getElementById("start").classList.add("hidden");
               })
           })
-          this.started = true;
       }
     },
 
@@ -143,7 +173,11 @@ export default {
     playAgain() {
         document.getElementById("playagain").classList.replace("show", "hidden")
         document.getElementById("buttonbox").classList.replace("adjust", "none")
-        document.getElementById("start").click();
+        document.getElementById("dealerCards").classList.replace("show", "hidden");
+        document.getElementById("playerCards").classList.replace("show", "hidden");
+        document.getElementById("hit").classList.replace("show", "hidden");
+        document.getElementById("stand").classList.replace("show", "hidden");
+        this.started = false;
     },
 
     updateDealer() {
@@ -182,7 +216,7 @@ export default {
         document.getElementById("dealerCards").classList.replace("hidden", "show");
     },
 
-    updatePlayer() {
+    async updatePlayer() {
         var string = "<h1>Total: "
         string += Math.max.apply(Math, this.playertotal) + "</h1>";
         for (let i=0; i < this.playercards.length; i++) {
@@ -195,6 +229,17 @@ export default {
             for (let i=0; i < this.playercards.length; i++) {
                 string += "<img src=\"" + this.playercards[i][2] + "\">\n"
             }
+            try {
+                    let newbalance = this.$root.$data.profile.balance - this.bet;
+                    let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
+                        balance: newbalance
+                    })
+                    this.$root.$data.user = response.data.user;
+                    this.$root.$data.profile = response.data.profile;
+                }
+                catch(error) {
+                    console.log(error)
+                }
             document.getElementById("playerCards").innerHTML += "<div class=\"result\"><h2>BUST</h2></div>"
             document.getElementById("playerCards").classList.replace("hidden", "show");
             document.getElementById("playagain").classList.replace("hidden", "show");
@@ -256,17 +301,39 @@ export default {
         })
     },
 
-    finish() {
+    async finish() {
         this.checkDealerHand();
         this.updateDealer();
         if (!this.dealerbust && !this.bust && Math.max.apply(Math, this.dealertotal) >= 17) {
             this.finished = true;
             if (Math.max.apply(Math, this.dealertotal) > Math.max.apply(Math, this.playertotal)) {
+                try {
+                    let newbalance = this.$root.$data.profile.balance - this.bet;
+                    let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
+                        balance: newbalance
+                    })
+                    this.$root.$data.user = response.data.user;
+                    this.$root.$data.profile = response.data.profile;
+                }
+                catch(error) {
+                    console.log(error)
+                }
                 document.getElementById("dealerCards").classList.add("dealerboxdisplay")
                 document.getElementById("dealerCards").innerHTML+= "<div class=\"result\"><h2>  WIN  </h2></div>"
                 document.getElementById("playerCards").innerHTML+= "<div class=\"result\"><h2>  LOSE  <h2></div>"
             }
             else if (Math.max.apply(Math, this.playertotal) > Math.max.apply(Math, this.dealertotal)) {
+                try {
+                    let newbalance = this.bet + this.$root.$data.profile.balance;
+                    let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
+                        balance: newbalance
+                    })
+                    this.$root.$data.user = response.data.user;
+                    this.$root.$data.profile = response.data.profile;
+                }
+                catch(error) {
+                    console.log(error)
+                }
                 document.getElementById("dealerCards").classList.add("dealerboxdisplay")
                 document.getElementById("dealerCards").innerHTML+= "<div class=\"result\"><h2>  LOSE  </h2></div>"
                 document.getElementById("playerCards").innerHTML+= "<div class=\"result\"><h2>  WIN  <h2></div>"
@@ -278,6 +345,17 @@ export default {
             }
         }
         if (this.dealerbust) {
+            try {
+                    let newbalance = this.bet + this.$root.$data.profile.balance;
+                    let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
+                        balance: newbalance
+                    })
+                    this.$root.$data.user = response.data.user;
+                    this.$root.$data.profile = response.data.profile;
+                }
+                catch(error) {
+                    console.log(error)
+                }
             document.getElementById("dealerCards").classList.add("dealerboxdisplay")
             document.getElementById("dealerCards").innerHTML+= "<div class=\"result\"><h2>  BUST  </h2></div>"
             document.getElementById("playerCards").innerHTML+= "<div class=\"result\"><h2>  WIN  <h2></div>"
@@ -368,6 +446,28 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.text {
+    color:black;
+}
+
+.quickbet {
+    display: flex;
+    justify-content: center;
+}
+
+.bet {
+    padding-top:20px;
+    color: black;
+}
+
+.bet h1 {
+    margin-bottom: 10px;
+}
+
+.quickbet h1 {
+    margin-bottom: 0px;
 }
 
 header {
@@ -583,6 +683,10 @@ li >>> a:hover {
   padding-bottom: 25px;
 }
 
+.choose {
+    background-color: black;
+    color: white;
+}
 @media (min-width: 1200px) and (max-width:1400px) {
     .adjust {
         width: 70%;
