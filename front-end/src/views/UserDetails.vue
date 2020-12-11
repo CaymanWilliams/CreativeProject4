@@ -10,7 +10,7 @@
       <li class = "money" > Current Balance: </li>
       <li class = "money"> <strong>${{this.$root.$data.profile.balance}}</strong></li>
       <br>
-      <li> {{this.$root.$data.profile.wins}} Wins, {{this.$root.$data.profile.losses}} Losses </li>
+      <li> {{this.$root.$data.profile.wins}} Wins, {{this.$root.$data.profile.ties}} Ties, {{this.$root.$data.profile.losses}} Losses </li>
       <br>
       <li>Total Winnings: ${{this.$root.$data.profile.balance - this.$root.$data.profile.totalDeposited}}</li>
           </ul>
@@ -34,7 +34,7 @@
       </div>
       <div id = "done"></div>
         <button class ="editbutton">Delete Account</button>
-        <button class ="editbutton">Reset Statistics</button>
+        <button class ="editbutton" v-on:click="resetStats()">Reset Game Statistics</button>
         <button class ="editbutton">Withdraw All Money</button>
       </div>
       </div>
@@ -97,7 +97,20 @@ export default {
     this.username = ""
     this.password = ""
     this.edit = false;
-  }
+  },
+  async resetStats() {
+	this.error = '';
+	try {
+		let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
+			wins: 0,
+			losses: 0,
+		});
+		this.$root.$data.user = response.data.user;
+		this.$root.$data.profile = response.data.profile;
+	} catch (error) {
+		this.error = error.response.data.message;
+	}
+},
 }
 }
 
