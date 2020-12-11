@@ -22,7 +22,19 @@
       <h2 class = "button" v-on:click="edit=true" >CLICK HERE to Edit your Account Information </h2>
       </div>
       <div v-if="edit">
-        
+	<div>
+        <h1>Enter the Information that you would like to change in the boxes below:</h1>
+         <input placeholder="First Name" class = "bigger" v-model="firstName">
+        <input placeholder="Last Name" class = "bigger" v-model="lastName">
+      </div>
+      <div>
+        <input placeholder="username"  class = "bigger" v-model="username">
+        <input type="password" placeholder="password" class = "bigger" v-model="password">
+      </div>
+      <div>
+        <button type="submit" class="pure-button" v-on:click="editAccount()">Edit Account</button>
+      </div>
+      <div id = "done"></div>
       </div>
       </div>
       <div class="back"></div>
@@ -43,7 +55,11 @@ export default {
       amountToAdd: 0,
       error: "",
       added: false,
-      edit: false
+      edit: false,
+      firstName: "",
+      lastName: "",
+      username: "",
+      password: "",
     }
   },
   components: {
@@ -66,16 +82,38 @@ export default {
       catch(error) {
         console.log(error)
       }
-    }	
+    },
+    async editAccount() {
+    this.error = '';
+    try {
+	let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
+		firstname: this.firstName,
+		lastname: this.lastName,
+		username: this.username,
+		password: this.password,
+	});
+	this.$root.$data.user = response.data.user;
+	this.$root.$data.profile = response.data.profile;
+    } catch (error) {
+	this.error = error.response.data.message;
+    }
+    this.firstName = ""
+    this.lastName = ""
+    this.username = ""
+    this.password = ""
+    this.edit = false;
   }
+}
 }
 
 </script>
 
 <style scoped>
 .bigger {
-  font-size: 18px;
+  font-size: 22px;
   margin-bottom: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 p {
@@ -146,6 +184,7 @@ li {
   margin-bottom: 20px;
   font-size: 18px;
   padding: 15px;
+  cursor: pointer;
 }
 
 h1 {
