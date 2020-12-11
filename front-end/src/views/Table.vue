@@ -55,18 +55,6 @@
 
     </div>
   </div>
-
-  <footer>
-    <div class="part-one">
-        <ul id="menu">
-          <li><a href="https://github.com/CaymanWilliams/CreativeProject4">GitHub Repository (URL: https://github.com/CaymanWilliams/CreativeProject4) </a></li>
-        </ul>
-    </div>
-    <div class="part-two">
-      Created by Cayman Williams and Joseph Wesley Fairbanks <br><br>
-      All rights reserved © 2020 Champion Casino
-    </div>
-  </footer>
   </body>
 
   </div>
@@ -519,7 +507,7 @@ body {
 }
 
 .excludefooter {
-    min-height: calc(100vh - 402px);
+    min-height: calc(100vh - 360px);
 }
 
 .main {

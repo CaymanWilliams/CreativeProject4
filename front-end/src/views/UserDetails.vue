@@ -20,12 +20,10 @@
 	<h2 class = "button" v-on:click="edit=true" >CLICK HERE to Edit your Account Information </h2>
       </div>
     </div>
-  </div>
-</div>
 </template>
 
 <script>
-import axios from "axios";
+//import axios from "axios";
 export default {
   name: 'UserDetails',
   data: function() {

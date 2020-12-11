@@ -11,6 +11,17 @@
       <a href="/" style="float:right;" v-if="!this.$root.login" v-on:click = "SignOut()"> Sign Out</a>
     </div>
     <router-view/>
+    <footer>
+    <div class="part-one">
+        <ul id="menu">
+          <li><a href="https://github.com/CaymanWilliams/CreativeProject4">GitHub Repository (URL: https://github.com/CaymanWilliams/CreativeProject4) </a></li>
+        </ul>
+    </div>
+    <div class="part-two">
+      Created by Cayman Williams and Joseph Wesley Fairbanks <br><br>
+      All rights reserved © 2020 Champion Casino
+    </div>
+  </footer>
   </div>
 </template>
 
@@ -33,6 +44,37 @@ export default {
   margin: 0;
 }
 
+footer {
+  background-color: #000000;
+  border-top: 5px solid #b08a4f;
+  border-bottom: 5px solid #b08a4f;
+  text-align: center;
+  font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+  color: #b08a4f;
+}
+
+li a {
+  display: block;
+  color: #b08a4f;
+  text-align: center;
+  padding: 8px 10px;
+  text-decoration: none;
+  font-size: 12pt;
+  margin-right: 30px;
+}
+
+li a:hover {
+  color: #000000;
+  background-color: #b08a4f;
+}
+
+.part-two {
+  padding-bottom: 25px;
+}
+
+#menu {
+  list-style-type: none;
+}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

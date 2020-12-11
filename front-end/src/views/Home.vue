@@ -15,18 +15,6 @@
 
   <img class = "title2" src="/images/table.jpg">
 
-  <footer>
-    <div class="part-one">
-        <ul id="menu">
-          <li><a href="https://github.com/CaymanWilliams/CreativeProject4">GitHub Repository (URL: https://github.com/CaymanWilliams/CreativeProject4) </a></li>
-        </ul>
-    </div>
-    <div class="part-two">
-      Created by Cayman Williams and Joseph Wesley Fairbanks <br><br>
-      All rights reserved © 2020 Champion Casino
-    </div>
-  </footer>
-
   </div>
 </template>
 
@@ -55,7 +43,6 @@ export default {
   margin-right: auto;
   margin-left: auto;
   margin-top: 30px;
-  margin-bottom: 30px;
   width: 85%;
 }
 
@@ -88,7 +75,6 @@ footer {
   border-bottom: 5px solid #b08a4f;
   text-align: center;
   font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
-  margin-top: 50px;
   color: #b08a4f;
 }
 
