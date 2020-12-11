@@ -10,7 +10,7 @@
       <li class = "money" > Current Balance: </li>
       <li class = "money"> <strong>${{this.$root.$data.profile.balance}}</strong></li>
       <br>
-      <li> {{this.$root.$data.profile.wins}} Wins, {{this.$root.$data.profile.losses}} Losses </li>
+      <li> {{this.$root.$data.profile.wins}} Wins, {{this.$root.$data.profile.ties}} Ties, {{this.$root.$data.profile.losses}} Losses </li>
       <br>
       <li>Total Winnings: ${{this.$root.$data.profile.balance - this.$root.$data.profile.totalDeposited}}</li>
           </ul>
@@ -34,7 +34,7 @@
       </div>
       <div id = "done"></div>
         <button class ="pure-button" v-on:click = "deleteAccount()"> Delete Account</button>
-        <button class ="pure-button">Reset Game Statistics</button>
+        <button class ="pure-button" v-on:click= "resetStats()">Reset Game Statistics</button>
         <button class ="pure-button" v-on:click = "withdraw()">Withdraw All Money</button>
       </div>
       </div>
@@ -84,7 +84,7 @@ export default {
     try {
 	let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
 		username: this.username,
-		password: this.password,
+		password: this.password
 	});
 	this.$root.$data.user = response.data.user;
 	this.$root.$data.profile = response.data.profile;
@@ -95,6 +95,22 @@ export default {
     this.password = ""
     this.edit = false;
   },
+  async resetStats() {
+    console.log("resetting")
+	this.error = '';
+	try {
+		let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
+			wins: 0,
+			losses: 0
+    });
+    console.log(response)
+		this.$root.$data.user = response.data.user;
+		this.$root.$data.profile = response.data.profile;
+	} catch (error) {
+		this.error = error.response.data.message;
+	}
+	this.$router.push("/")
+},
   SignOut() {
       console.log("sign out attempted")
       this.$root.$data.user = null;
