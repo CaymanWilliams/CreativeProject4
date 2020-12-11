@@ -13,7 +13,7 @@
         <input type="password" placeholder="password" class = "bigger" v-model="password">
       </div>
       <div>
-        <button type="submit" class="pure-button" @click.prevent="register">Register</button>
+        <button type="submit" class="pure-button" @click.prevent="register" v-on:click="register()">Register</button>
       </div>
     </form>
     <p v-if="error" class="error">{{error}}</p>
@@ -24,13 +24,80 @@
       <input type="password" placeholder="password" class = "bigger" v-model="passwordLogin">
     </div>
     <div>
-      <button type="submit" class="pure-button" @click.prevent="login">Login</button>
+      <button type="submit" class="pure-button" @click.prevent = "login" v-on:click="login()">Login</button>
     </div>
   </form>
   <p v-if="errorLogin" class="error">{{errorLogin}}</p>
 </div>
 </div>
 </template>
+
+<script>
+import axios from "axios";
+export default {
+  name: 'Home',
+  data: function() {
+    return {
+      firstName: "",
+      lastName: "",
+      username: "",
+      password: "",
+      usernameLogin: "",
+      passwordLogin: "",
+      error: "",
+      errorLogin: "",
+    }
+  },
+  components: {
+  },
+  methods: {
+    async register() {
+      this.error = '';
+      this.errorLogin = '';
+      if (!this.firstName || !this.lastName || !this.username || !this.password)
+        return;
+      try {
+        let response = await axios.post('/api/users', {
+          firstname: this.firstName,
+          lastname: this.lastName,
+          username: this.username,
+          password: this.password,
+        });
+        this.$root.$data.user = response.data.user;
+      } catch (error) {
+        this.error = error.response.data.message;
+        this.$root.$data.user = null;
+      }
+      this.firstName = ""
+      this.lastName = ""
+      this.username = ""
+      this.password = ""
+    },
+    async login() {
+      this.error = '';
+      this.errorLogin = '';
+      if (!this.usernameLogin || !this.passwordLogin) {
+        return;
+      }
+      try {
+        console.log(this.usernameLogin, this.passwordLogin)
+        let response = await axios.post('/api/users/login', {
+          username: this.usernameLogin,
+          password: this.passwordLogin,
+        });
+        this.$root.$data.user = response.data.user;
+        console.log(response.data.user)
+      } catch (error) {
+        console.log(error)
+        this.error = error.response.data.message;
+        this.$root.$data.user = null;
+      }
+      this.usernameLogin = ""
+      this.passwordLogin = ""
+    }
+  }
+}
+</script>
 
 <style scoped>
 h1 {

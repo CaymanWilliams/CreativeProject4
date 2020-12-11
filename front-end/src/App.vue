@@ -1,16 +1,32 @@
 <template>
   <div id="app">
     <div id="nav">
-      <a style="color:black;"> Login </a>
+      <a v-if="this.$root.login" style="color:black;"> Login </a>
+      <a v-if="!this.$root.login" style="color:black;">Sign Out</a>
       <router-link to="/">Home</router-link> |
       <router-link to="/Table">Table</router-link> |
       <router-link to="/Leaderboard">Leaderboard</router-link> |
       <router-link to="/UserDetails">User Details</router-link>
-      <router-link to="/Login" style="float:right;">Login</router-link>
+      <router-link to="/Login" v-if="this.$root.login" style="float:right;">Login</router-link>
+      <a href="/" style="float:right;" v-if="!this.$root.login" v-on:click = "SignOut()"> Sign Out</a>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  components: {
+  },
+  methods: {
+    SignOut() {
+      console.log("sign out attempted")
+      this.user = null;
+    }
+  }
+}
+</script>
 
 <style>
 * {
