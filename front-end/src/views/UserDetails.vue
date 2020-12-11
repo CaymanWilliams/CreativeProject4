@@ -34,8 +34,8 @@
       </div>
       <div id = "done"></div>
         <button class ="pure-button" v-on:click = "deleteAccount()"> Delete Account</button>
-        <button class ="editbutton" v-on:click="resetStats()">Reset Game Statistics</button>
-        <button class ="editbutton">Withdraw All Money</button>
+        <button class ="pure-button" v-on:click="resetStats()">Reset Game Statistics</button>
+        <button class ="pure-button">Withdraw All Money</button>
       </div>
       </div>
       <div class="back"></div>
@@ -84,7 +84,7 @@ export default {
     try {
 	let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
 		username: this.username,
-		password: this.password,
+		password: this.password
 	});
 	this.$root.$data.user = response.data.user;
 	this.$root.$data.profile = response.data.profile;
@@ -100,13 +100,14 @@ export default {
 	try {
 		let response = await axios.put("/api/users/" + this.$root.$data.user.username, {
 			wins: 0,
-			losses: 0,
+			losses: 0
 		});
 		this.$root.$data.user = response.data.user;
 		this.$root.$data.profile = response.data.profile;
 	} catch (error) {
 		this.error = error.response.data.message;
 	}
+	this.$router.push("/")
 },
   SignOut() {
       console.log("sign out attempted")
