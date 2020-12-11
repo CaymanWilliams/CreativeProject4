@@ -32,10 +32,9 @@
         <input type="password" placeholder="password" class = "bigger" v-model="password">
       </div>
       <div>
-        <button type="submit" class="pure-button" v-on:click="editAccount()">Edit Account</button>
+        <button type="submit" class="pure-button" v-on:click="editAccount()">Change Username/Password</button>
       </div>
       <div id = "done"></div>
-        <button class ="pure-button">Change Username/Password</button>
         <button class ="pure-button">Delete Account</button>
         <button class ="pure-button">Reset Statistics</button>
         <button class ="pure-button">Withdraw All Money</button>
