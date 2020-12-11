@@ -20,21 +20,12 @@
 	<p v-if="added"> Thank You for your deposit!</p>
 	<h2 class = "button" v-on:click="edit=true" >CLICK HERE to Edit your Account Information </h2>
       </div>
-<<<<<<< HEAD
       <div class="back"></div>
-=======
-    <div class="back">
-    </div>
->>>>>>> 8e4d08d592dcde8fb6dda7e46f583e88647b7ac4
     </div>
 </template>
 
 <script>
 import axios from "axios";
-<<<<<<< HEAD
-=======
-
->>>>>>> 8e4d08d592dcde8fb6dda7e46f583e88647b7ac4
 export default {
   name: 'UserDetails',
   data: function() {
