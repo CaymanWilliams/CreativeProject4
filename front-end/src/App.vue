@@ -104,8 +104,11 @@ li a:hover {
 
 @media only screen and (max-width: 990px) {
 #nav{
-  font-size: 16pt;
+  font-size: 10pt;
 }
+li a {
+  font-size: 6pt;
 
+}
 }
 </style>

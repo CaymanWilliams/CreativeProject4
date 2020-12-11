@@ -148,4 +148,16 @@ z-index: -1;
   display: inline;
 }
 
+@media only screen and (max-width: 960px) {
+  h1 {
+    font-size: 12pt;
+  }
+  ul {
+    font-size: 10pt;
+  }
+  h2 {
+    font-size: 12pt;
+  }
+}
+
 </style>
