@@ -34,7 +34,7 @@
 
 <style scoped>
 h1 {
-  font-size: 48px;
+  font-size: 36px;
   font-variant: capitalize;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -46,7 +46,7 @@ h1 {
 }
 
 h2 {
-  font-size: 38px;
+  font-size: 28px;
   font-variant: capitalize;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -56,8 +56,8 @@ h2 {
 }
 
 .bigger {
-  font-size: 32px;
-  margin-bottom: 20px;
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 
@@ -72,7 +72,7 @@ h2 {
   color: #b08a4f;
   border-radius: 30px;
   margin-bottom: 20px;
-  font-size: 30px;
+  font-size: 18px;
   padding: 15px;
 }
 
@@ -125,5 +125,21 @@ input {
   font-size: 10px;
   background-color: #d9534f;
   color: #fff;
+}
+
+@media only screen and (max-width: 990px) {
+  h1 {
+    font-size: 16pt;
+  }
+  h2 {
+    font-size: 14pt;
+  }
+  .bigger {
+    font-size: 12pt;
+  }
+  .pure-button {
+    font-size: 12pt;
+  }
+
 }
 </style>
