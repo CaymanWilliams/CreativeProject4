@@ -29,6 +29,7 @@
   </form>
   <p v-if="errorLogin" class="error">{{errorLogin}}</p>
 </div>
+<div class = "back"></div>
 </div>
 </template>
 
@@ -185,6 +186,17 @@ margin: 0px;
 
 input {
   margin-right: 10px;
+}
+
+.back {
+  min-height: 100vh;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -2;
 }
 
 .error {

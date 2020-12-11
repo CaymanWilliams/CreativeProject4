@@ -1,15 +1,19 @@
 <template>
+  <div>
   <div class="leaderboard">
     <div class="box">
       <h1>Leaderboard</h1>
       <div class = "players">
         <ul>
-          <li v-for="leader in leaders" :key="leader.username">
-            Username: {{leader.username }} Wins: {{leader.wins}}
+          <li v-for="(leader, index) in leaders" :key="leader.username" class = "listitem">
+            <h1 style="display:inline">{{index+1}}) {{leader.username }}: {{leader.wins}} Wins</h1>
           </li>
         </ul>
-        </div>
+      </div>
       <h2>These are the top Champion Casino BlackJack Players in the World</h2>
+    </div>
+  </div>
+    <div class="back">
     </div>
   </div>
 </template>
@@ -57,13 +61,21 @@ export default {
 
 <style scoped>
 
+
 .players {
   color: white;
 }
-
 .players ul{
   list-style-type: none;
   padding-left: 0;
+}
+
+li {
+  white-space: pre;
+}
+
+.box {
+  border: 5px solid #b08a4f;
 }
 
 h1 {
@@ -86,14 +98,28 @@ h2 {
   -moz-osx-font-smoothing: grayscale;
   color: #b08a4f;
   margin-bottom: 20px;
-  margin-top: 80px;
+  margin-top: 20px;
 }
 
+.back {
+  min-height: calc(100vh - 555px);
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -2;
+}
 
 .leaderboard {
   padding: 30px;
   display: flex;
   justify-content: center;
+}
+
+.listitem {
+  padding:10px;
 }
 
 .leaderboard::after {

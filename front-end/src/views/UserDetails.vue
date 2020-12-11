@@ -15,12 +15,10 @@
 	<button v-if="addMoney" type="submit" class="gameButton" v-on:click="addMoney()">Submit</button>
       </div>
     </div>
-  </div>
-</div>
 </template>
 
 <script>
-import axios from "axios";
+//import axios from "axios";
 export default {
   name: 'UserDetails',
   data: function() {
