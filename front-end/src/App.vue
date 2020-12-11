@@ -32,6 +32,8 @@ export default {
 * {
   margin: 0;
 }
+
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -56,5 +58,12 @@ export default {
 
 #nav a.router-link-exact-active{
   color: #497834;
+}
+
+@media only screen and (max-width: 990px) {
+#nav{
+  font-size: 16pt;
+}
+
 }
 </style>
