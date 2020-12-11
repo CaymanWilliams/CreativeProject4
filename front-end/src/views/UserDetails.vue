@@ -11,7 +11,7 @@
 	<br>
 	<li> {{this.$root.$data.profile.wins}} Wins, {{this.$root.$data.profile.losses}} Losses </li>
 	<br>
-	<li>Total Deposited: {{this.$root.$data.profile.totalDeposited}}</li>
+	<li>Total Winnings: {{this.$root.$data.profile.balance - this.$root.$data.profile.totalDeposited}}</li>
        </ul>
 	<h2 class = "button" v-on:click="addMoney=true" >CLICK HERE to add Money to your Account </h2>
 	<p h2 v-if="addMoney"> Enter the amount of Money you wish to deposit below:</p>
